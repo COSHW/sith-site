@@ -137,7 +137,7 @@ def shadow_hand(request):
         'Subject: %s' % subject,
         '',
         message
-    ])
+    ]).encode('utf-8')
     gmail.sendmail(from_email, to_email, newmessage)
     # gmail.send_message(msg)
     gmail.quit()
