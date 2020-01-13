@@ -65,7 +65,7 @@ def answers():
 
 
 def sh():
-    cur.execute("insert into shadow_hands (req_id, master_id) values (3, 1), (6, 1), (8, 1), (12, 2), (16, 2), (4, 25), (4, 66), (4, 88)")
+    cur.execute("insert into shadow_hands (req_id, master_id) values (3, 1), (6, 1), (8, 1), (12, 2), (16, 2), (25, 4), (66, 4), (88, 4)")
     conn.commit()
 
 
@@ -79,7 +79,7 @@ def tes():
         "insert into tests (orden_num) values (66), (15)")
     conn.commit()
 
-
+"""
 qs()
 plan()
 tes()
@@ -89,3 +89,5 @@ sith()
 answers()
 sh()
 
+"""
+sh()
