@@ -130,7 +130,16 @@ def shadow_hand(request):
     gmail.ehlo()
     gmail.starttls()
     gmail.login(from_email, from_password)
-    gmail.send_message(msg)
+    newmessage = '\r\n'.join([
+        'To: %s' % to_email,
+        'From: %s' % from_email,
+        'Subject: %s' % subject,
+        '',
+        message
+    ])
+    gmail.sendmail(from_email, to_email, newmessage)
+    # gmail.send_message(msg)
+    gmail.quit()
 
     return render(request, "send.html", {'message': 'Выбранный рекрут становится вашей теневой рукой'})
 
