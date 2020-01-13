@@ -2,7 +2,6 @@
 import psycopg2
 import random
 import time
-from contextlib import suppress
 
 
 conn = psycopg2.connect("dbname='sith_db' user='postgres' password='Lovunod2302' host='localhost' port='5432'")
@@ -13,14 +12,34 @@ patronimics = ["Александрович", "Алексеевич", "Анато
 i = 1
 symbols = ['a', 'b', 'c', 'd', 'e', 'f', 'h', 'y', 'k', 'q', 'r', 'z']
 
+
 def req():
-    name = "{} {} {}".format(random.choice(surnames), random.choice(names), random.choice(patronimics))
-    planet = random.randint(1, 3)
-    age = random.randint(18, 50)
-    email = random.choice(symbols)+random.choice(symbols)+random.choice(symbols)+random.choice(symbols)+str(random.randint(100, 999))+'@gmail.com'
-    cur.execute("insert into recruit (name, planet, age, email) values ('{}', {}, {}, '{}')".format(name, planet, age, email))
+    for i in range(100):
+        name = "{} {} {}".format(random.choice(surnames), random.choice(names), random.choice(patronimics))
+        planet = random.randint(1, 3)
+        age = random.randint(18, 50)
+        email = random.choice(symbols)+random.choice(symbols)+random.choice(symbols)+random.choice(symbols)+str(random.randint(100, 999))+'@gmail.com'
+        cur.execute("insert into recruit (name, planet, age, email) values ('{}', {}, {}, '{}')".format(name, planet, age, email))
+        conn.commit()
+
+
+
+def plan():
+    pla = ['Юпитер', "Эндор", "Энцелад", "Земля"]
+    for i in pla:
+        cur.execute(
+            "insert into planets (name) values ('{}')".format(i))
+        conn.commit()
+
+
+def q_list():
+    cur.execute("insert into question_lists (test, question) values (1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (2, 4)")
     conn.commit()
-    time.sleep(0.05)
+
+
+def qs():
+    cur.execute("insert into questions (question) values ('Хорошее настроение?'), ('Хотите помочь правому делу?'), ('Имеете страховку?'), ('Нравится сайт?')")
+    conn.commit()
 
 
 def master():
@@ -33,10 +52,34 @@ def master():
 
 
 def answers():
-    for i in range(99):
+    for i in range(100):
         answer = "Вопрос 1) "+random.choice(["Да", "Нет"]) + ", Вопрос 2) "+random.choice(["Да", "Нет"]) + ", Вопрос 3) "+random.choice(["Да", "Нет"])
         cur.execute("insert into answers (rec_id, answer) values ({}, '{}')".format(i, answer))
         conn.commit()
 
 
+def sh():
+    cur.execute("insert into shadow_hands (req_id, master_id) values (3, 1), (6, 1), (8, 1), (12, 2), (16, 2), (4, 25), (4, 66), (4, 88)")
+    conn.commit()
+
+
+def sith():
+    cur.execute(
+        "insert into sith (name, ed_planet) values ('Палпатин', 3), ('Дарт Вективус', 2), ('Дарт Гин', 1), ('Дарт Бэйн', 2)")
+    conn.commit()
+
+def tes():
+    cur.execute(
+        "insert into tests (orden_num) values (66), (15)")
+    conn.commit()
+
+
+qs()
+plan()
+tes()
+q_list()
+req()
+sith()
 answers()
+sh()
+
