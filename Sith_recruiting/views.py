@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 import psycopg2
 import pandas
 import os
+from email.mime.text import MIMEText
 import traceback
+import smtplib
 
 
 # conn = psycopg2.connect("dbname='sith_db' user='postgres' password='Lovunod2302' host='localhost' port='5432'")
@@ -110,6 +112,29 @@ def shadow_hand(request):
     data = dict(request.GET)
     cur.execute("insert into shadow_hands (req_id, master_id) values ({}, (select id from sith where name='{}'))".format(int(list(data.keys())[1]), data['sith'][0]))
     conn.commit()
+
+    cur.execute("select email from recruit where id = {}".format(int(list(data.keys())[1])))
+    to_email = cur.fetchall()
+    from_email = "kursovayarabota2018@gmail.com"
+    from_password = "hn7dop45xh12"
+    subject = "Принятие на должность теневой руки"
+
+    cur.execute("select name from sith where id = {}".format(data['sith'][0]))
+    master = cur.fetchall()
+
+    message = "Поздравляем! \n Вас принял на должность своей теневой руки {}".format(master)
+
+    msg = MIMEText(message, 'html')
+    msg['Subject'] = subject
+    msg['To'] = to_email
+    msg['From'] = from_email
+
+    gmail = smtplib.SMTP('smtp.gmail.com', 587)
+    gmail.ehlo()
+    gmail.starttls()
+    gmail.login(from_email, from_password)
+    gmail.send_message(msg)
+
     return render(request, "send.html", {'message': 'Выбранный рекрут становится вашей теневой рукой'})
 
 
