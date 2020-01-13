@@ -119,10 +119,7 @@ def shadow_hand(request):
     from_password = "hn7dop45xh12"
     subject = "Принятие на должность теневой руки"
 
-    cur.execute("select name from sith where id = {}".format(data['sith'][0]))
-    master = cur.fetchall()
-
-    message = "Поздравляем! \n Вас принял на должность своей теневой руки {}".format(master)
+    message = "Поздравляем! \n Вас принял на должность своей теневой руки {}".format(data['sith'][0])
 
     msg = MIMEText(message, 'html')
     msg['Subject'] = subject
