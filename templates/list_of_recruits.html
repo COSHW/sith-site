@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .llll
+        {
+        position:absolute;
+        left:2%;
+        top:0%;
+        }
+        a
+        {
+            color: #f8fff1;
+            text-decoration: none;
+            font-size: 40px;
+        }
+
+        a:hover { color: #ff0000; } /* CSS link hover (green) */
+
+
+
+        #phone2
+        {
+            text-align: center;
+            font-size: 40px;
+            background-color: #f7cf31;
+            position:absolute;
+            left:0%;
+            top:0%;
+            width: 100%;
+
+        }
+        #table
+        {
+            text-align: center;
+            font-size: 16px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="phone2">
+<form action="/sith/make_shadow_hand">
+<a class="llll" href="/">На главную</a>
+    Результаты запроса
+    <input type="hidden" name="sith" value={{ sith }}>
+    <div id="table">
+
+        <table class="table table-bordered">
+			    <thead class="thead-dark">
+					<tr scope="row">
+					    <th scope="col">ID</th>
+                        <th scope="col">ФИО</th>
+                        <th scope="col">Планета</th>
+                        <th scope="col">Возраст</th>
+                        <th scope="col">Ответы</th>
+                        <th scope="col">Вербовать</th>
+					</tr>
+				</thead>
+				<tbody>
+                    {% for item in data %}
+                        <tr>
+                            <th scope="col">{{ item.0 }}</th>
+                            <th scope="col">{{ item.1 }}</th>
+                            <th scope="col">{{ item.2 }}</th>
+                            <th scope="col">{{ item.3 }}</th>
+                            <th scope="col">{{ item.4 }}</th>
+                            <th scope="col"><input type="submit" value="Вербовать" name={{ item.0 }}></th>
+                        </tr>
+                    {% endfor %}
+			    </tbody>
+			</table>
+
+    </div>
+    </form>
+</div>
+
+
+</body>
+</html>
