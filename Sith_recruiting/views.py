@@ -116,7 +116,7 @@ def shadow_hand(request):
     cur.execute("select email from recruit where id = {}".format(int(list(data.keys())[1])))
     to_email = cur.fetchall()
     from_email = "kursovayarabota2018@gmail.com"
-    from_password = "hn7dop45xh12"
+    from_password = "yjsbnlymxmtfncuy"
     subject = "Принятие на должность теневой руки"
 
     message = "Поздравляем! \n Вас принял на должность своей теневой руки {}".format(data['sith'][0])
